@@ -89,7 +89,7 @@ private fun UsersContentState(
                 )
                 Column {
                     Text(user.name)
-                    Text(user.email)
+                    Text(user.personalEmail)
                 }
             }
         }

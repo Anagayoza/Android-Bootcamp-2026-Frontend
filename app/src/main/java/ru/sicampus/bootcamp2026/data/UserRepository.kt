@@ -12,7 +12,7 @@ class UserRepository(
                 UserEntity(
                     name = userDto.name ?: return@mapNotNull null,
                     photoUrl = userDto.photoUrl ?: return@mapNotNull null,
-                    email = userDto.email ?: return@mapNotNull null,
+                    personalEmail = userDto.personalEmail ?: return@mapNotNull null,
                 )
             }
         }
