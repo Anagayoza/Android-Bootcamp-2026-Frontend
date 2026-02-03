@@ -42,7 +42,6 @@ ktor-client-cio = { group = "io.ktor", name="ktor-client-cio", version.ref = "kt
 ktor-client-content = { group = "io.ktor", name="ktor-client-content-negotiation", version.ref = "ktorClient" }
 ktor-client-logging = { group = "io.ktor", name="ktor-client-logging", version.ref = "ktorClient" }
 ktor-client-serialization = { group = "io.ktor", name="ktor-serialization-kotlinx-json", version.ref = "ktorClient" }
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose"}
 kotlinx-serialization-json = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serializationKotlin"}
