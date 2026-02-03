@@ -3,6 +3,8 @@
 .gradle
 .DS_Store
 /build
+# для fedora linux
+app/build/
 /captures
 .externalNativeBuild
 .cxx
