@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -53,6 +55,7 @@ dependencies {
     // интерация Compose и Activity
     implementation(libs.androidx.activity.compose)
     // BOM - управляем версиями compose автоматически
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(platform(libs.androidx.compose.bom))
     // Базовый UI Compose
     implementation(libs.androidx.ui)
@@ -61,6 +64,12 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     // M3
     implementation(libs.androidx.material3)
+
+    implementation(libs.coil.compose)
+    implementation(libs.bundles.ktor)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.coil3.coil.network.ktor3)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
