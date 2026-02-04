@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
-import ru.sicampus.bootcamp2026.domain.entities.UserEntity
+import ru.sicampus.bootcamp2026.domain.users.entities.UserEntity
 
 @Composable
 fun UsersScreen(

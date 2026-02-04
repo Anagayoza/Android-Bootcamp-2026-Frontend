@@ -1,7 +1,7 @@
 package ru.sicampus.bootcamp2026.data
 
 import ru.sicampus.bootcamp2026.data.source.UserInfoDataSource
-import ru.sicampus.bootcamp2026.domain.entities.UserEntity
+import ru.sicampus.bootcamp2026.domain.users.entities.UserEntity
 
 class UserRepository(
     private val userInfoDataSource: UserInfoDataSource

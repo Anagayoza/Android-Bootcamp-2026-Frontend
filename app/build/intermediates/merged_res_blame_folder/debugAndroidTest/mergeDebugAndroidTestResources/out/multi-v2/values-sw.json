@@ -4,7 +4,7 @@
             "outputFile": "ru.sicampus.bootcamp2026.test.app-mergeDebugAndroidTestResources-33:/values-sw/values-sw.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\girfa\\.gradle\\caches\\8.13\\transforms\\e53dc6d52cf38fbf0d9af0aec3e3eb48\\transformed\\core-1.17.0\\res\\values-sw\\values-sw.xml",
+                    "source": "C:\\Users\\girfa\\.gradle\\caches\\8.13\\transforms\\1ca3a8411cc4acdb4ab8990abcd7804c\\transformed\\core-1.17.0\\res\\values-sw\\values-sw.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\girfa\\.gradle\\caches\\8.13\\transforms\\826eb4bbffd093f7eef4bd62176d8b87\\transformed\\ui\\res\\values-sw\\values-sw.xml",
+                    "source": "C:\\Users\\girfa\\.gradle\\caches\\8.13\\transforms\\e945a0dcbb35caee599d2dfc2492baac\\transformed\\ui\\res\\values-sw\\values-sw.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

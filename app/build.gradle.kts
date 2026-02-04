@@ -14,7 +14,7 @@ android {
     defaultConfig {
         applicationId = "ru.sicampus.bootcamp2026"
         minSdk = 25
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -31,12 +31,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlin {
         compilerOptions {
-            jvmTarget = JvmTarget.JVM_11
+            jvmTarget = JvmTarget.JVM_21
         }
     }
     buildFeatures {
@@ -52,6 +52,8 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.kotlinx.collections.immutable)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     // интерация Compose и Activity
@@ -69,6 +71,7 @@ dependencies {
 
     implementation(libs.coil.compose)
     implementation(libs.bundles.ktor)
+    implementation(libs.bundles.coil)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.coil3.coil.network.ktor3)
 

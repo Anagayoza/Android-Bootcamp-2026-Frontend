@@ -24,21 +24,23 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
 import ru.sicampus.bootcamp2026.ui.screens.Notifications
 import ru.sicampus.bootcamp2026.ui.screens.Profile
-import ru.sicampus.bootcamp2026.ui.screens.SignIn.SignIn
-import ru.sicampus.bootcamp2026.ui.screens.SignIn.SignInState
+import ru.sicampus.bootcamp2026.ui.screens.signin.SignIn
+import ru.sicampus.bootcamp2026.ui.screens.signin.SignInState
 import ru.sicampus.bootcamp2026.ui.screens.SignUp
 import ru.sicampus.bootcamp2026.ui.screens.TimeTable
 
+/*объявление интерфейса для "объединения" путей для навигации и ограничения количества наследников*/
+sealed interface Route
 @Serializable
-object SignIn
+object SignIn: Route
 @Serializable
-object SignUp
+object SignUp: Route
 @Serializable
-object TimeTable
+object TimeTable: Route
 @Serializable
-object Profile
+object Profile: Route
 @Serializable
-object Notifications
+object Notifications: Route
 
 /*@Serializable
 object goToApp*/
@@ -52,7 +54,7 @@ fun Root () {
     /** из документациии андройд по панеле навигации: https://developer.android.com/develop/ui/compose/components/navigation-bar?hl=ru
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) } **/
     var authState by remember {
-        mutableStateOf(SignInState.Data())
+        mutableStateOf(SignInState.Data(userLoggedIn = false, isEnabledSend = false, error = null))
     }
     Scaffold(
         modifier = Modifier,

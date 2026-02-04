@@ -4,24 +4,7 @@
             "outputFile": "ru.sicampus.bootcamp2026.test.app-mergeDebugAndroidTestResources-33:/values-ta/values-ta.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\girfa\\.gradle\\caches\\8.13\\transforms\\e53dc6d52cf38fbf0d9af0aec3e3eb48\\transformed\\core-1.17.0\\res\\values-ta\\values-ta.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,151,254,353,451,558,673,801",
-                        "endColumns": "95,102,98,97,106,114,127,100",
-                        "endOffsets": "146,249,348,446,553,668,796,897"
-                    },
-                    "to": {
-                        "startLines": "3,4,5,6,7,8,9,26",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "203,299,402,501,599,706,821,2373",
-                        "endColumns": "95,102,98,97,106,114,127,100",
-                        "endOffsets": "294,397,496,594,701,816,944,2469"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\girfa\\.gradle\\caches\\8.13\\transforms\\826eb4bbffd093f7eef4bd62176d8b87\\transformed\\ui\\res\\values-ta\\values-ta.xml",
+                    "source": "C:\\Users\\girfa\\.gradle\\caches\\8.13\\transforms\\e945a0dcbb35caee599d2dfc2492baac\\transformed\\ui\\res\\values-ta\\values-ta.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -35,6 +18,23 @@
                         "startOffsets": "105,949,1046,1130,1224,1325,1416,1499,1608,1699,1794,1876,1962,2052,2144,2229,2302,2474,2554,2623",
                         "endColumns": "97,96,83,93,100,90,82,108,90,94,81,85,89,91,84,72,70,79,68,119",
                         "endOffsets": "198,1041,1125,1219,1320,1411,1494,1603,1694,1789,1871,1957,2047,2139,2224,2297,2368,2549,2618,2738"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\girfa\\.gradle\\caches\\8.13\\transforms\\1ca3a8411cc4acdb4ab8990abcd7804c\\transformed\\core-1.17.0\\res\\values-ta\\values-ta.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,151,254,353,451,558,673,801",
+                        "endColumns": "95,102,98,97,106,114,127,100",
+                        "endOffsets": "146,249,348,446,553,668,796,897"
+                    },
+                    "to": {
+                        "startLines": "3,4,5,6,7,8,9,26",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "203,299,402,501,599,706,821,2373",
+                        "endColumns": "95,102,98,97,106,114,127,100",
+                        "endOffsets": "294,397,496,594,701,816,944,2469"
                     }
                 }
             ]

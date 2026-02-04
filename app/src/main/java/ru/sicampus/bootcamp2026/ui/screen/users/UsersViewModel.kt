@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.sicampus.bootcamp2026.data.UserRepository
 import ru.sicampus.bootcamp2026.data.source.UserInfoDataSource
-import ru.sicampus.bootcamp2026.domain.GetUsersUseCase
+import ru.sicampus.bootcamp2026.domain.users.GetUsersUseCase
 
 class UsersViewModel: ViewModel() {
     private val getUsersUseCase = GetUsersUseCase(

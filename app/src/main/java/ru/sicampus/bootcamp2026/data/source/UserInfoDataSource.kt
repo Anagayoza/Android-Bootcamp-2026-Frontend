@@ -10,7 +10,9 @@ import ru.sicampus.bootcamp2026.data.dto.UserDto
 class UserInfoDataSource {
     suspend fun getUser(): Result<List<UserDto>> = withContext(Dispatchers.IO) {
         runCatching {
-            val result = Network.client.get("${Network.HOST}/api/users")
+            val result = Network.client.get("${Network.HOST}/api/users") {
+                addSignInHeader()
+            }
             if (result.status != HttpStatusCode.OK) {
                 error("Status: ${result.status}")
             }
