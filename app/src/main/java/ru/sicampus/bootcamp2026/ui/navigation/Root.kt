@@ -113,14 +113,7 @@ fun Root () {
         ) {
             composable<SignIn> {
                 SignIn(
-                    onNavigateToSignUp = { navController.navigate(SignUp) },
-                    onNavigateToTimeTable = {
-                        // временная логика :)
-                        authState = authState.copy(userLoggedIn = true)
-                        navController.navigate(TimeTable) {
-                            popUpTo(SignIn) { inclusive = true } // нельзя вернуться
-                        }
-                    }
+                    navController = navController
                 )
             }
             composable<SignUp> {
@@ -141,7 +134,9 @@ fun Root () {
             composable<Profile> {
                 Profile()
             }
-            composable<Notifications> { Notifications() }
+            composable<Notifications> {
+                Notifications()
+            }
         }
     }
 }

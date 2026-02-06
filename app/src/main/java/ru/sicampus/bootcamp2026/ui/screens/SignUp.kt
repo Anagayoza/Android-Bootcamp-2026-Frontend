@@ -55,13 +55,13 @@ fun SignUp (
             onValueChange = {it -> workEmail.value = it},
             shape = RoundedCornerShape(20.dp)
         )
-        val personalEmail = remember{mutableStateOf("")}
-        OutlinedTextField(
-            label = {Text("Личный email")},
-            value = personalEmail.value,
-            onValueChange = {it -> personalEmail.value = it},
-            shape = RoundedCornerShape(20.dp)
-        )
+//        val personalEmail = remember{mutableStateOf("")}
+//        OutlinedTextField(
+//            label = {Text("Личный email")},
+//            value = personalEmail.value,
+//            onValueChange = {it -> personalEmail.value = it},
+//            shape = RoundedCornerShape(20.dp)
+//        )
         val position = remember{mutableStateOf("")}
         OutlinedTextField(
             label = {Text("Должность")},

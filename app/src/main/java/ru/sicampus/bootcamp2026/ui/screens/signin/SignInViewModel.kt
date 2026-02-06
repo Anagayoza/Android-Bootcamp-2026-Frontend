@@ -14,8 +14,9 @@ import ru.sicampus.bootcamp2026.data.source.SignInLocalDataSource
 import ru.sicampus.bootcamp2026.data.source.SignInNetworkDataSource
 import ru.sicampus.bootcamp2026.domain.signin.CheckAndSaveSignInUseCase
 import ru.sicampus.bootcamp2026.domain.signin.CheckSignInFormatUseCase
-import ru.sicampus.bootcamp2026.ui.navigation.Profile
-import ru.sicampus.bootcamp2026.ui.screens.signin.SignInAction.*
+import ru.sicampus.bootcamp2026.ui.navigation.SignUp
+import ru.sicampus.bootcamp2026.ui.navigation.TimeTable
+import ru.sicampus.bootcamp2026.ui.screens.signin.SignInAction.OpenScreen
 
 class SignInViewModel: ViewModel() {
     private val checkSignInFormatUseCase by lazy { CheckSignInFormatUseCase() }
@@ -29,7 +30,7 @@ class SignInViewModel: ViewModel() {
     }
     private val _uiState = MutableStateFlow<SignInState>(
         SignInState.Data(
-            //необходимо реализовать userLoggedIn
+            //не знаю надо ли вообще реализовывать userLoggedIn
             userLoggedIn = true,
             isEnabledSend = false,
             error = null,
@@ -48,7 +49,7 @@ class SignInViewModel: ViewModel() {
                     checkAndSaveSignInUseCase(intent.login, intent.password).fold(
                         onSuccess = {
                             _actionFlow.emit(
-                                OpenScreen(Profile)
+                                OpenScreen(TimeTable)
                             )
                         },
                         onFailure = { error ->
@@ -72,11 +73,19 @@ class SignInViewModel: ViewModel() {
                     )
                 }
             }
+
+            is SignInIntent.Register -> {
+                viewModelScope.launch {
+                    _actionFlow.emit(
+                        OpenScreen(SignUp)
+                    )
+                }
+            }
         }
     }
     private fun updateStateIfData(lambda: (SignInState.Data) -> SignInState) {
         _uiState.update { state ->
-            (state as? SignInState.Data)?.let { lambda.invoke(it) } ?: state
+            (state as? SignInState.Data)?.let { lambda(it) } ?: state
         }
     }
 }

@@ -1,15 +1,21 @@
 package ru.sicampus.bootcamp2026.ui.screen.users
 
+import androidx.compose.ui.platform.isDebugInspectorInfoEnabled
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import ru.sicampus.bootcamp2026.data.UserRepository
 import ru.sicampus.bootcamp2026.data.source.UserInfoDataSource
 import ru.sicampus.bootcamp2026.domain.users.GetUsersUseCase
 
 class UsersViewModel: ViewModel() {
+    private val mutex = Mutex()
+    private val actualResult: MutableList<UsersState.Item> = mutableListOf()
     private val getUsersUseCase = GetUsersUseCase(
         userRepository = UserRepository(UserInfoDataSource())
     )
@@ -20,17 +26,88 @@ class UsersViewModel: ViewModel() {
         getData()
     }
 
-    fun getData() {
+    fun onIntent(intent: UserIntent) {
+        when (intent) {
+            is UserIntent.LoadMore -> {
+               getData(offset = actualResult.size)
+            }
+            is UserIntent.Refresh -> {
+                getData(offset = if (actualResult.isEmpty()) 0 else actualResult.size - 1)
+            }
+        }
+    }
+
+    private fun getData(offset: Int) {
+        val isFirstPage = offset == 0
         viewModelScope.launch {
-            _uiState.emit(UsersState.Loading)
-            getUsersUseCase.invoke().fold(
-                onSuccess = { data ->
-                    _uiState.emit(UsersState.Content(data))
-                },
-                onFailure = { error ->
-                    _uiState.emit((UsersState.Error(error.message.orEmpty())))
+            _uiState.emit(
+                if(isFirstPage) {
+                    UsersState.Loading
+                } else {
+                    mutex.withLock {
+                        dropLastTemporaryItem()
+                        actualResult.add(UsersState.Item.Loading)
+                        (_uiState.value as? UsersState.Content)?.copy(
+                            users = actualResult.toPersistentList()
+                        ) ?: UsersState.Loading
+                    }
                 }
             )
+
+            getUsersUseCase.invoke(offset).fold(
+                onSuccess = { data ->
+                    addItemsToState(isFirstPage, data)
+                },
+                onFailure = { error ->
+                    error.printStackTrace()
+                    _uiState.emit(
+                        when (val state = _uiState.value) {
+                            is UsersState.Content -> {
+                                mutex.withLock {
+                                    dropLastTemporaryItem()
+                                    actualResult.add(UsersState.Item.Error)
+                                    state.copy(
+                                        users = actualResult.toPersistentList()
+                                    )
+                                }
+                            }
+                            is UsersState.Error,
+                            UsersState.Loading -> {
+                                UsersState.Error(error.message.orEmpty())
+                            }
+                        }
+                    )
+                }
+            )
+        }
+    }
+
+    private suspend fun addItemsToState(
+        isFirstPage: Boolean,
+        data: PagingUser,
+    ) {
+        mutex.withLock {
+            if (isFirstPage) {
+                actualResult.clear()
+            } else {
+                dropLastTemporaryItem()
+            }
+            actualResult.addAll(
+                data.users.map { item -> UsersState.Item.User(item) }
+            )
+            _uiState.emit(
+                UsersState.Content(
+                    isLastPage = data.isLast,
+                    users = actualResult.toPersistentList()
+                )
+            )
+        }
+    }
+    private fun dropLastTemporaryItem() {
+        when (actualResult.last()) {
+            is UsersState.Item.Error,
+            is UsersState.Item.Loading -> actualResult.removeAt(actualResult.lastIndex)
+            is UsersState.Item.User -> Unit
         }
     }
 }

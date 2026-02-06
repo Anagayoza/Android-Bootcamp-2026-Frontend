@@ -18,6 +18,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,16 +28,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import ru.sicampus.bootcamp2026.ui.theme.accentBlue
 
 @Composable
 fun SignIn (
     modifier: Modifier = Modifier,
     viewModel: SignInViewModel = viewModel<SignInViewModel>(),
-    onNavigateToSignUp: () -> Unit,
-    onNavigateToTimeTable: () -> Unit
+    navController: NavController
 ) {
     val state by viewModel.uiState.collectAsState()
+
+    /*здесь происходят перемещения. каждый раз, когда
+    * actionFlow из SignInViewModel меняется, происходит
+    * навигация */
+    LaunchedEffect(Unit) {
+        viewModel.actionFlow.collect { action ->
+            when (action) {
+                is SignInAction.OpenScreen -> navController.navigate(action.route)
+            }
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
@@ -48,8 +61,10 @@ fun SignIn (
         }*/
         Text("Вход", fontSize = 30.sp)
         Spacer(modifier = Modifier.padding(vertical = 10.dp))
+
+        /* state может не содержать данных, поскольку они ещё не подгрузились */
         when (val currentState = state) {
-            is SignInState.Data -> Content(viewModel, currentState, onNavigateToTimeTable = onNavigateToTimeTable, onNavigateToSignUp = onNavigateToSignUp)
+            is SignInState.Data -> Content(viewModel, currentState)
             is SignInState.Loading -> {
                 CircularProgressIndicator(
                     modifier = Modifier.size(64.dp)
@@ -61,17 +76,16 @@ fun SignIn (
     @Composable
     private fun Content(
         viewModel: SignInViewModel,
-        state: SignInState.Data,
-        onNavigateToTimeTable: () -> Unit,
-        onNavigateToSignUp: () -> Unit
+        state: SignInState.Data
     ) {
         val login = remember { mutableStateOf("") }
         val pass = remember { mutableStateOf("") }
         OutlinedTextField(
             label = { Text("Логин") },
             value = login.value,
-            onValueChange = {
+            onValueChange = { it ->
                 login.value = it
+                //обновление state. необходимо для блокировки и разблокировки кнопки "Вход"
                 viewModel.onIntent(SignInIntent.TextInput(login.value, pass.value))
             },
             shape = RoundedCornerShape(20.dp)
@@ -89,7 +103,6 @@ fun SignIn (
         Button(
             onClick = {
                 viewModel.onIntent(SignInIntent.Send(login.value, pass.value))
-                onNavigateToTimeTable()
             },
             colors = ButtonDefaults.buttonColors(
                 accentBlue
@@ -106,7 +119,10 @@ fun SignIn (
             )
         }
         OutlinedButton(
-            onClick = { onNavigateToSignUp() },
+            //по сути здесь просто написано navController.navigate(SignUp) :)
+            onClick = {
+                viewModel.onIntent(SignInIntent.Register)
+            },
             border = BorderStroke(1.dp, accentBlue),
             modifier = Modifier.width(275.dp),
             shape = RoundedCornerShape(15.dp)

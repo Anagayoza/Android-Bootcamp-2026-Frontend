@@ -1,6 +1,7 @@
 package ru.sicampus.bootcamp2026
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -26,7 +27,8 @@ class MainActivity : ComponentActivity() {
             //val navController = rememberNavController()
             //val startDestination = TimeTable()
             AndroidBootcamp2026FrontendTheme {
-                Root()
+                UsersScreen()
+//                Root()
                 /*Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     *//*AppNavHost(navController, modifier = Modifier.padding(innerPadding))*//*
 
