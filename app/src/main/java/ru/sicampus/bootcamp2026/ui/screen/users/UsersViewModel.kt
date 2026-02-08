@@ -1,3 +1,4 @@
+/*
 package ru.sicampus.bootcamp2026.ui.screen.users
 
 import androidx.compose.ui.platform.isDebugInspectorInfoEnabled
@@ -111,3 +112,4 @@ class UsersViewModel: ViewModel() {
         }
     }
 }
+*/

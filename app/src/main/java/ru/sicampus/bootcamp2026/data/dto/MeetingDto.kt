@@ -4,7 +4,10 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MeetingDTO (
-    @SerialName("name")
-    val name: String?,
+data class MeetingDto (
+    @SerialName("title")
+    val title: String?,
+    @SerialName("date")
+    val date: String?,
+
 )

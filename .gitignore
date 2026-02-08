@@ -6,6 +6,7 @@
 # для fedora linux
 app/build/
 /captures
+/build/
 .externalNativeBuild
 .cxx
 local.properties

@@ -1,3 +1,4 @@
+/*
 package ru.sicampus.bootcamp2026.ui.screen.users
 
 import androidx.compose.foundation.layout.Box
@@ -188,4 +189,4 @@ fun ItemError(
 //            UserEntity("Somebody Once Told", "somebody@yandex.ru", "metheworldisgonnarollme")
 //        )
 //    ))
-//}
+//}*/
