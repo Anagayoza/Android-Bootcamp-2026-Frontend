@@ -13,6 +13,7 @@ import ru.sicampus.bootcamp2026.data.UserRepository
 import ru.sicampus.bootcamp2026.data.source.MeetingInfoDataSource
 import ru.sicampus.bootcamp2026.data.source.UserInfoDataSource
 import ru.sicampus.bootcamp2026.domain.users.GetMeetingsUseCase
+import ru.sicampus.bootcamp2026.domain.users.GetPlannedMeetingsUseCase
 import ru.sicampus.bootcamp2026.domain.users.GetUsersUseCase
 import ru.sicampus.bootcamp2026.domain.users.entities.PagingMeetingListEntity
 import ru.sicampus.bootcamp2026.domain.users.entities.PagingUserListEntity

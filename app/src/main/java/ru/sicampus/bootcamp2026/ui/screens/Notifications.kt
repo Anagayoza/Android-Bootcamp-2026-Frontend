@@ -13,6 +13,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -25,7 +26,7 @@ fun Notifications(
     modifier: Modifier = Modifier,
     events: List<String> = listOf("Собрание","Обсуждение","Совещание","Собрание","Обсуждение","Совещание","Собрание","Обсуждение","Совещание","Собрание","Обсуждение","Совещание")
     ) {
-    var itemsToShow by remember { mutableStateOf(5) }
+    var itemsToShow by remember { mutableIntStateOf(5) }
     LazyColumn(
         modifier = Modifier.fillMaxSize().padding(horizontal = 4.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)

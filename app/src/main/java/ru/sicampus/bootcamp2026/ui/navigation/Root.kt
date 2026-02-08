@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.MeetingRoom
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PersonSearch
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -36,8 +38,10 @@ import ru.sicampus.bootcamp2026.ui.screens.profile.Profile
 import ru.sicampus.bootcamp2026.ui.screens.signin.SignIn
 import ru.sicampus.bootcamp2026.ui.screens.signin.SignInState
 import ru.sicampus.bootcamp2026.ui.screens.SignUp
+import ru.sicampus.bootcamp2026.ui.screens.meetings.MeetingsScreen
 import ru.sicampus.bootcamp2026.ui.screens.timetable.AddInvite
 import ru.sicampus.bootcamp2026.ui.screens.timetable.TimeTable
+import ru.sicampus.bootcamp2026.ui.screens.users.UsersScreen
 
 /*объявление интерфейса для "объединения" путей для навигации и ограничения количества наследников*/
 sealed interface Route
@@ -53,6 +57,10 @@ object Profile: Route
 object Notifications: Route
 @Serializable
 object AddInvite: Route
+@Serializable
+object UsersScreen: Route
+@Serializable
+object MeetingsScreen: Route
 
 /*@Serializable
 object goToApp*/
@@ -84,6 +92,8 @@ fun Root () {
                                 0 -> "Ваше расписание"
                                 1 -> "Профиль"
                                 2 -> "Приглашения"
+                                3 -> "Список сотрудников"
+                                4 -> "Список встреч"
                                 else -> ""
                             }
                         )
@@ -120,6 +130,24 @@ fun Root () {
                         },
                         icon = { Icon(Icons.Default.Notifications, contentDescription = null) },
                         label = { Text("Приглашения") }
+                    )
+                    NavigationBarItem(
+                        selected = selectedItem == 3,
+                        onClick = {
+                            selectedItem = 3
+                            navController.navigate(UsersScreen)
+                        },
+                        icon = { Icon(Icons.Default.PersonSearch, contentDescription = null) },
+                        label = { Text("Список сотрудников") }
+                    )
+                    NavigationBarItem(
+                        selected = selectedItem == 4,
+                        onClick = {
+                            selectedItem = 4
+                            navController.navigate(MeetingsScreen)
+                        },
+                        icon = { Icon(Icons.Default.MeetingRoom, contentDescription = null) },
+                        label = { Text("Список встреч") }
                     )
                 }
             }
@@ -171,7 +199,7 @@ fun Root () {
                 )
             }
             composable<TimeTable> {
-
+                authState = authState.copy(userLoggedIn = true)
                 TimeTable()
             }
             composable<Profile> {
@@ -182,6 +210,12 @@ fun Root () {
             }
             composable<AddInvite> {
                 AddInvite()
+            }
+            composable<UsersScreen> {
+                UsersScreen()
+            }
+            composable<MeetingsScreen> {
+                MeetingsScreen()
             }
         }
     }

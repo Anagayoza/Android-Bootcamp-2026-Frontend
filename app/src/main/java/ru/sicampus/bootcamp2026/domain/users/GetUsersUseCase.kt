@@ -2,16 +2,10 @@ package ru.sicampus.bootcamp2026.domain.users
 
 import ru.sicampus.bootcamp2026.data.UserRepository
 import ru.sicampus.bootcamp2026.domain.users.entities.PagingUserListEntity
-import ru.sicampus.bootcamp2026.domain.users.entities.UserEntity
 
 class GetUsersUseCase(
     private val userRepository: UserRepository
 ) {
-    suspend fun getUserFromUR(id: Int): Result<UserEntity> {
-        return userRepository.getUser(
-            id = id
-        )
-    }
     suspend operator fun invoke(
         offset: Int
     ): Result<PagingUserListEntity> {
