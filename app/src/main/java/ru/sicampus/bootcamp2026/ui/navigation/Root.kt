@@ -132,15 +132,6 @@ fun Root () {
                         label = { Text("Приглашения") }
                     )
                     NavigationBarItem(
-                        selected = selectedItem == 3,
-                        onClick = {
-                            selectedItem = 3
-                            navController.navigate(UsersScreen)
-                        },
-                        icon = { Icon(Icons.Default.PersonSearch, contentDescription = null) },
-                        label = { Text("Список сотрудников") }
-                    )
-                    NavigationBarItem(
                         selected = selectedItem == 4,
                         onClick = {
                             selectedItem = 4

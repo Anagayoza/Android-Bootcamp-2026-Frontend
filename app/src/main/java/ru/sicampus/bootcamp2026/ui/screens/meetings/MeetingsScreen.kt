@@ -1,5 +1,6 @@
 package ru.sicampus.bootcamp2026.ui.screens.meetings
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,10 +10,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -113,11 +117,19 @@ private fun MeetingsContentState(
         modifier = Modifier.fillMaxSize(),
         state = lazyColumnListState
     ) {
+
         items(state.meetings) { item ->
-            when (item) {
-                is MeetingsState.Item.Error -> ItemError(onRefresh)
-                is MeetingsState.Item.Loading -> ItemLoading()
-                is MeetingsState.Item.Meeting -> ItemMeeting(item.meetingEntity)
+            Box(modifier = Modifier.fillMaxSize().padding(horizontal = 4.dp, vertical = 4.dp)
+                .border(
+                    width = 2.dp,
+                    color = MaterialTheme.colorScheme.primary,
+                    shape = RoundedCornerShape(16.dp)
+                ) ) {
+                    when (item) {
+                        is MeetingsState.Item.Error -> ItemError(onRefresh)
+                        is MeetingsState.Item.Loading -> ItemLoading()
+                        is MeetingsState.Item.Meeting -> ItemMeeting(item.meetingEntity)
+                    }
             }
         }
     }
