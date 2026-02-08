@@ -1,5 +1,4 @@
-/*
-package ru.sicampus.bootcamp2026.ui.screen.users
+package ru.sicampus.bootcamp2026.ui.screens.users
 
 import kotlinx.collections.immutable.PersistentList
 import ru.sicampus.bootcamp2026.domain.users.entities.UserEntity
@@ -17,4 +16,4 @@ sealed interface UsersState {
         data object Error: Item
         data class User(val userEntity: UserEntity): Item
     }
-}*/
+}

@@ -8,18 +8,34 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.sicampus.bootcamp2026.data.dto.PagingUserListDto
 import ru.sicampus.bootcamp2026.data.dto.UserDto
-import ru.sicampus.bootcamp2026.domain.users.entities.PagingUserListEntity
 
 class UserInfoDataSource {
     suspend fun getUser(
+        id: Int
+    ): Result<List<UserDto>> = withContext(Dispatchers.IO) {
+        runCatching {
+            val result = Network.client.get("${Network.HOST}/api/users") {
+                url {
+                    parameter("id", id)
+                }
+                addSignInHeader()
+            }
+            if (result.status != HttpStatusCode.OK) {
+                error("Status: ${result.status}")
+            }
+            result.body()
+        }
+    }
+
+    suspend fun getUsers(
         page: Int,
         size: Int
     ): Result<PagingUserListDto> = withContext(Dispatchers.IO) {
         runCatching {
             val result = Network.client.get("${Network.HOST}/api/users/paginated") {
                 url {
-                    parameter("page", page)
-                    parameter("size", size)
+                    parameter("pageNumber", page)
+                    parameter("pageSize", size)
                 }
                 addSignInHeader()
             }

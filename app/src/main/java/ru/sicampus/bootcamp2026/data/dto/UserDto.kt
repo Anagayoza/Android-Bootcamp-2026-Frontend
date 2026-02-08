@@ -5,9 +5,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserDto(
+    @SerialName("id")
+    val id: Int?,
     @SerialName("name")
     val name: String?,
-    @SerialName("personalEmail")
+    @SerialName("email")
     val email: String?,
     @SerialName("photoUrl")
     val photoUrl: String?,
@@ -22,5 +24,5 @@ data class UserDto(
     @SerialName("phoneNumber")
     val phoneNumber: String?,
     @SerialName("departmentName")
-    val departmentName: String?,
+    val departmentName: String?
 )

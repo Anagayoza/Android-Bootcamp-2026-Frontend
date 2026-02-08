@@ -8,6 +8,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import ru.sicampus.bootcamp2026.App
+import ru.sicampus.bootcamp2026.domain.users.entities.UserEntity
 import kotlin.io.encoding.Base64
 
 object SignInLocalDataSource {
@@ -22,6 +23,7 @@ object SignInLocalDataSource {
             }.firstOrNull()
             isInit = true
         }
+
         return _cacheToken
     }
 

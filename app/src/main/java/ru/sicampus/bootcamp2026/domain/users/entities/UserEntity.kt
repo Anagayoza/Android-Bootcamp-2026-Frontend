@@ -1,6 +1,7 @@
 package ru.sicampus.bootcamp2026.domain.users.entities
 
 class UserEntity (
+    val id: Int,
     val name: String,
     val email: String,
     val photoUrl: String,

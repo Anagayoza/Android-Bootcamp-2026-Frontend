@@ -60,7 +60,7 @@ fun Root () {
     /** из документациии андройд по панеле навигации: https://developer.android.com/develop/ui/compose/components/navigation-bar?hl=ru
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) } **/
     var authState by remember {
-        mutableStateOf(SignInState.Data(userLoggedIn = true, isEnabledSend = false, error = null))
+        mutableStateOf(SignInState.Data(userLoggedIn = false, isEnabledSend = false, error = null))
     // todo: userLoggedIn = false   !!!!!!!!   !!!!!!!  !!!!!  !!!!!!  !!! !!!!!!!
     }
     Scaffold(

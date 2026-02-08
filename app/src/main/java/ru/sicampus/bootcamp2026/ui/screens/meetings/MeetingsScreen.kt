@@ -1,5 +1,4 @@
-/*
-package ru.sicampus.bootcamp2026.ui.screen.users
+package ru.sicampus.bootcamp2026.ui.screens.meetings
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,41 +23,40 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.modifier.ModifierLocalReadScope
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
-import ru.sicampus.bootcamp2026.domain.users.entities.UserEntity
+import ru.sicampus.bootcamp2026.domain.users.entities.MeetingEntity
 
 @Composable
-fun UsersScreen(
-    viewModel: UsersViewModel = viewModel<UsersViewModel>()
+fun MeetingsScreen(
+    viewModel: MeetingsViewModel = viewModel<MeetingsViewModel>()
 ) {
     val state by viewModel.uiState.collectAsState()
 
     when (val currentState = state) {
-        is UsersState.Loading -> UsersLoadingState()
-        is UsersState.Content -> UsersContentState(
+        is MeetingsState.Loading -> MeetingsLoadingState()
+        is MeetingsState.Content -> MeetingsContentState(
             currentState,
             onRefresh = {
-                viewModel.onIntent(UserIntent.Refresh)
+                viewModel.onIntent(MeetingsIntent.Refresh)
             },
             onLoadMore = {
-                viewModel.onIntent(UserIntent.LoadMore)
+                viewModel.onIntent(MeetingsIntent.LoadMore)
             }
         )
-        is UsersState.Error -> UsersErrorState(
+        is MeetingsState.Error -> MeetingsErrorState(
             currentState,
             onRefresh = {
-                viewModel.onIntent(UserIntent.Refresh)
+                viewModel.onIntent(MeetingsIntent.Refresh)
             })
     }
 }
 
 @Preview
 @Composable
-private fun UsersLoadingState() {
+private fun MeetingsLoadingState() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
@@ -70,8 +68,8 @@ private fun UsersLoadingState() {
 }
 
 @Composable
-private fun UsersErrorState(
-    state: UsersState.Error,
+private fun MeetingsErrorState(
+    state: MeetingsState.Error,
     onRefresh: () -> Unit
 ) {
     Box(
@@ -92,8 +90,8 @@ private fun UsersErrorState(
 }
 
 @Composable
-private fun UsersContentState(
-    state: UsersState.Content,
+private fun MeetingsContentState(
+    state: MeetingsState.Content,
     onRefresh: () -> Unit,
     onLoadMore: () -> Unit
 ) {
@@ -101,7 +99,9 @@ private fun UsersContentState(
     val isNeededLoadMore by remember {
         derivedStateOf {
             val lastVisibleItem =
-                lazyColumnListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: Int.MIN_VALUE
+                lazyColumnListState.layoutInfo
+                    .visibleItemsInfo
+                    .lastOrNull()?.index ?: Int.MIN_VALUE
             val totalItems = lazyColumnListState.layoutInfo.totalItemsCount
             lastVisibleItem >= totalItems - 5
         }
@@ -113,33 +113,29 @@ private fun UsersContentState(
         modifier = Modifier.fillMaxSize(),
         state = lazyColumnListState
     ) {
-        items(state.users) { item ->
+        items(state.meetings) { item ->
             when (item) {
-                is UsersState.Item.Error -> ItemError(onRefresh)
-                is UsersState.Item.Loading -> ItemLoading()
-                is UsersState.Item.User -> ItemUser(item.userEntity)
+                is MeetingsState.Item.Error -> ItemError(onRefresh)
+                is MeetingsState.Item.Loading -> ItemLoading()
+                is MeetingsState.Item.Meeting -> ItemMeeting(item.meetingEntity)
             }
         }
     }
 }
 
 @Composable
-fun ItemUser(
-    user: UserEntity
+fun ItemMeeting(
+    meeting: MeetingEntity
 ) {
     Row(
         modifier = Modifier.padding(vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        AsyncImage(
-            modifier = Modifier.size(48.dp).clip(CircleShape),
-            model = user.photoUrl,
-            contentDescription = null
-        )
         Column {
-            Text("${user.surname} ${user.name} ${user.patronymic}")
-            Text(user.departmentName)
-            Text(user.email)
+            Text(meeting.title)
+            Text("${meeting.date}")
+            Text("${meeting.startTime} ${meeting.endTime}")
+            Text("${meeting.creatorId}")
         }
     }
 }
@@ -171,22 +167,3 @@ fun ItemError(
         }
     }
 }
-
-//@Preview
-//@Composable
-//private fun TestUsersContentState() {
-//    UsersContentState(UsersState.Content(
-//        listOf<UserEntity>(
-//            UserEntity(
-//                "Ramis Girfanov", "girfanov2007@gmail.com", "something",
-//                surname = TODO(),
-//                patronymic = TODO(),
-//                username = TODO(),
-//                messengerLink = TODO(),
-//                phoneNumber = TODO(),
-//                departmentName = TODO()
-//            ),
-//            UserEntity("Somebody Once Told", "somebody@yandex.ru", "metheworldisgonnarollme")
-//        )
-//    ))
-//}*/

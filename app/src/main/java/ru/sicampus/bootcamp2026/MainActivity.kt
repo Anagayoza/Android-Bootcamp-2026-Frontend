@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-//import ru.sicampus.bootcamp2026.ui.screen.users.UsersScreen
 import ru.sicampus.bootcamp2026.ui.navigation.Root
+import ru.sicampus.bootcamp2026.ui.screens.meetings.MeetingsScreen
+import ru.sicampus.bootcamp2026.ui.screens.signin.SignIn
+import ru.sicampus.bootcamp2026.ui.screens.users.UsersScreen
 import ru.sicampus.bootcamp2026.ui.theme.AndroidBootcamp2026FrontendTheme
 
 class MainActivity : ComponentActivity() {
@@ -16,7 +18,6 @@ class MainActivity : ComponentActivity() {
             //val navController = rememberNavController()
             //val startDestination = TimeTable()
             AndroidBootcamp2026FrontendTheme {
-                //UsersScreen()
                 Root()
             }
         }
