@@ -2,10 +2,13 @@ package ru.sicampus.bootcamp2026.ui.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.NavigationBar
@@ -25,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import kotlinx.serialization.Serializable
 import ru.sicampus.bootcamp2026.ui.screens.Notifications
@@ -32,6 +36,7 @@ import ru.sicampus.bootcamp2026.ui.screens.profile.Profile
 import ru.sicampus.bootcamp2026.ui.screens.signin.SignIn
 import ru.sicampus.bootcamp2026.ui.screens.signin.SignInState
 import ru.sicampus.bootcamp2026.ui.screens.SignUp
+import ru.sicampus.bootcamp2026.ui.screens.timetable.AddInvite
 import ru.sicampus.bootcamp2026.ui.screens.timetable.TimeTable
 
 /*объявление интерфейса для "объединения" путей для навигации и ограничения количества наследников*/
@@ -46,6 +51,8 @@ object TimeTable: Route
 object Profile: Route
 @Serializable
 object Notifications: Route
+@Serializable
+object AddInvite: Route
 
 /*@Serializable
 object goToApp*/
@@ -60,9 +67,12 @@ fun Root () {
     /** из документациии андройд по панеле навигации: https://developer.android.com/develop/ui/compose/components/navigation-bar?hl=ru
     var selectedDestination by rememberSaveable { mutableIntStateOf(startDestination.ordinal) } **/
     var authState by remember {
-        mutableStateOf(SignInState.Data(userLoggedIn = false, isEnabledSend = false, error = null))
+        mutableStateOf(SignInState.Data(userLoggedIn = true, isEnabledSend = false, error = null))
     // todo: userLoggedIn = false   !!!!!!!!   !!!!!!!  !!!!!  !!!!!!  !!! !!!!!!!
     }
+    val currentBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = currentBackStackEntry?.destination?.route
+    val showAddButton = authState.userLoggedIn == false && currentRoute == TimeTable::class.qualifiedName
     Scaffold(
         modifier = Modifier,
         topBar = {
@@ -113,7 +123,17 @@ fun Root () {
                     )
                 }
             }
-        }
+        },
+        floatingActionButton = {
+            if (showAddButton) {
+                FloatingActionButton(onClick = {
+                    navController.navigate(AddInvite)
+                }) {
+                    Icon(Icons.Default.Add, contentDescription = "Add")
+                }
+            }
+        },
+        floatingActionButtonPosition = FabPosition.End,
         /*NavHost(navController = navController, startDestination = SignIn) {
             composable<SignIn> {
                 SignIn(
@@ -159,6 +179,9 @@ fun Root () {
             }
             composable<Notifications> {
                 Notifications()
+            }
+            composable<AddInvite> {
+                AddInvite()
             }
         }
     }
